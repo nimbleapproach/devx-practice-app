@@ -1,0 +1,41 @@
+{
+  "name": "nextjs-app",
+  "version": "1.0.0",
+  "description": "A Next.js application with user authentication and transaction management.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/runtime": "^7.26.7",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.0.0"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
+  },
+  "babel": {
+    "presets": [
+      "next/babel"
+    ]
+  }
+}

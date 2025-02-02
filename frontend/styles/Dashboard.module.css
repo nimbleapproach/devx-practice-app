@@ -1,0 +1,25 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.table th, .table td {
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f4f4f4;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
