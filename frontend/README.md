@@ -38,17 +38,20 @@ nextjs-app
 ## Getting Started
 
 1. **Clone the repository**:
+
    ```
    git clone <repository-url>
-   cd nextjs-app
+   cd frontend
    ```
 
 2. **Install dependencies**:
+
    ```
    npm install
    ```
 
 3. **Run the application**:
+
    ```
    npm run dev
    ```
