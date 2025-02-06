@@ -1,0 +1,14 @@
+---
+services:
+  db:
+    container_name: devx_app_db
+    image: postgres
+    ports:
+      - 5432:5432
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: postgres # what the api is currently configured for
+      POSTGRES_DB: app_database
+    volumes:
+      - './database:/docker-entrypoint-initdb.d/:ro'
