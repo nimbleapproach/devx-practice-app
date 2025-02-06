@@ -1,0 +1,14 @@
+services:
+  db:
+    container_name: devx_app_db
+    image: postgres
+    # restart: always
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: postgres # what the api is currently configured for
+      POSTGRES_DB: app_database
+    volumes:
+      - './database:/docker-entrypoint-initdb.d/:ro'
+    ports:
+      - "5432:5432"
+    # network_mode: host # workaround currently to avoid having to auth (localhost is allowed by default) until I've unpicked how that's configured in the api component docker-compose.yml

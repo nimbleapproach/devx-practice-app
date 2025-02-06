@@ -1,4 +1,4 @@
-CREATE DATABASE app_database;
+-- CREATE DATABASE app_database; - Not needed with POSTGRES_DB stored in docker-compose.yaml
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
