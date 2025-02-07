@@ -24,5 +24,3 @@ services:
     image: frontend
     ports:
       - 3000:3000
-    environment:
-      API_URL: api
