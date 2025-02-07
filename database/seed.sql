@@ -9,8 +9,9 @@ INSERT INTO users (username, email, password) VALUES
 ('user7', 'user7@example.com', 'scrypt:32768:8:1$v6ML5QfsEKXLRIGj$5b5a813e8117cbc5f9c798ece1c22f40edc716b7aa429c82a5057dd1ac9ccd5de70600166cdbc5fa7954931eed6b8f090ea4a6efd2a1ef4ef98e38f3820e32fb'),
 ('user8', 'user8@example.com', 'scrypt:32768:8:1$HbbweP13wMLEorQP$f018448f48ed4286b5528eb782b444637af03bc7c7839ca249f6b63143a91d5cf14e58846bd77a4c704348dabf45be13aa9d68c77666d6f3ebb90828f39f289c'),
 ('user9', 'user9@example.com', 'scrypt:32768:8:1$Q1YBWVoQYKrS2dtj$2d059dd481df84b1e69db1db11634e4a8a8835110da5d6ba7aac7b8449b7f71f22c02d8da505d1b5f771930502ae21b52a4ae684197855f68fe88f1c909d2ed0'),
-('user10', 'user10@example.com', 'scrypt:32768:8:1$bhUlzECJwTv502gA$8a8b24fbfd4181c5930762f459c811b446b403ecb47e1efc4efa56d987210c1bae5e1ffd64f68176b2aa0684542fe9f599cdfc6e9ef7ff1778a8ecaf2eba4b59');
-
+('user10', 'user10@example.com', 'scrypt:32768:8:1$bhUlzECJwTv502gA$8a8b24fbfd4181c5930762f459c811b446b403ecb47e1efc4efa56d987210c1bae5e1ffd64f68176b2aa0684542fe9f599cdfc6e9ef7ff1778a8ecaf2eba4b59'),
+('testuser750', 'testuser@test.com', 'scrypt:32768:8:1$cg2l5E0F29YY2EWp$79c2fe991920c6cc1ffc330ae4fa101332b1116dd60deb574c95a234cd5aa67e1ca02d6f04e2f21dec776b7ec2b1788e89bad1499663bfb19440c902246c9abb');
+		
 -- Insert 20 transactions for each user
 DO $$
 DECLARE
