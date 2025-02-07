@@ -32,8 +32,8 @@ api
 
 1. **Clone the repository:**
    ```
-   git clone <repository-url>
-   cd flask-crud-app
+   git clone <repository-url> (Not necessary if entire repo has been cloned from the top level)
+   cd api
    ```
 
 2. **Create a virtual environment:**
@@ -51,10 +51,38 @@ api
    - Update the database connection details in `app/config.py`.
    - Run migrations to set up the database schema.
 
-5. **Run the application:**
+5. **Set up Docker**
+  
+  ### Windows set up
+  - Install WSL2 and Ubuntu from the Microsoft Store
+  - Open PowerShell as an Administrator and run `wsl --install`
+  - Set WSL2 as the default version by running `wsl --set-default-version 2`
+  - Install Docker Engine in WSL2 by opening your Ubuntu terminal and running: 
+      ```
+         sudo apt update
+         sudo apt install -y ca-certificates curl gnupg lsb-release
+         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+         echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+         sudo apt update
+         sudo apt install -y docker-ce docker-ce-cli containerd.io
+      ```
+   - Start Docker Daemon in WSL2 by running `sudo service docker start`
+   - Verify Docker is working by running `sudo docker run hello-world`
+   - Install Docker engine by running `sudo apt install -y ca-certificates curl gnupg lsb-release`
+   - Add Docker's official GPG key by running `sudo mkdir -p /etc/apt/keyrings curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg`
+   - Set up the Docker repository: `echo \ "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`
+   - Update your package index again: `sudo apt update`
+   - Start Docker: `sudo service docker start`
+   - cd into the root of the project (where the docker-compose.yaml is located)
+   - Run `docker-compose up -dc`
+
+6. **Run the application:**
    ```
    python run.py
    ```
+
 
 ## Usage
 

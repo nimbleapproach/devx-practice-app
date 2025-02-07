@@ -12,3 +12,10 @@ services:
     ports:
       - "5432:5432"
     # network_mode: host # workaround currently to avoid having to auth (localhost is allowed by default) until I've unpicked how that's configured in the api component docker-compose.yml
+  frontend: 
+    build: ./frontend
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - ./frontend:/app
+    command: npm install && npm run dev
