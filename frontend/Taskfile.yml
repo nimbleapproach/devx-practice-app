@@ -18,4 +18,9 @@ tasks:
   run:
     desc: Runs the frontent container
     cmds:
-      - docker run --rm --name frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" frontend
+      - docker run -d --rm --name frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" frontend
+
+  stop:
+    desc: Stops the frontend container
+    cmds:
+      - docker stop frontend

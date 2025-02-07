@@ -12,3 +12,17 @@ services:
       POSTGRES_DB: app_database
     volumes:
       - './database:/docker-entrypoint-initdb.d/:ro'
+  api:
+    container_name: devx_api
+    image: devx-api
+    ports:
+      - 3001:3001
+    environment:
+      - API_DB_ENDPOINT=db
+  frontend:
+    container_name: frontend
+    image: frontend
+    ports:
+      - 3000:3000
+    environment:
+      API_URL: api
