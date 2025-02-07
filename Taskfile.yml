@@ -6,9 +6,9 @@ includes:
   api:
     taskfile: ./api/Taskfile.yml
     dir: ./api
-  # frontend:
-  #   taskfile: ./frontend/Taskfile.yml
-  #   dir: ./frontend
+  frontend:
+    taskfile: ./frontend/Taskfile.yml
+    dir: ./frontend
 
 tasks:
   default:
@@ -20,4 +20,19 @@ tasks:
     desc: Builds docker images for all components 
     cmds:
       - task: api:build
+      - task: frontend:build
+
+  run-all:
+    desc: Runs docker images for all components 
+    cmds:
+      - docker run -d --rm --name devx-db -p 5432:5432 -v './database:/docker-entrypoint-initdb.d/:ro' -e POSTGRES_PASSWORD="mysecretpassword" -e POSTGRES_USER=postgres -e POSTGRES_DB=app_database postgres
+      - task: api:run
+      - task: frontend:run
+
+  stop-all:
+    desc: Stops docker images for all components 
+    ignore_error: true
+    cmds:
+      - task: api:stop
+      - task: frontend:stop
       

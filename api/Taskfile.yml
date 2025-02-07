@@ -19,4 +19,9 @@ tasks:
   run:
     desc: Runs the devx-api container
     cmds:
-      - docker run --rm --name devx-api -p "{{.API_PORT}}":"{{.API_PORT}}" devx-api
+      - docker run -d --rm --name devx-api -p "{{.API_PORT}}":"{{.API_PORT}}" devx-api
+  
+  stop:
+    desc: Stops the devx-api container
+    cmds:
+      - docker stop devx-api
