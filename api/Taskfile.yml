@@ -3,7 +3,7 @@
 version: '3'
 
 vars:
-  API_PORT: 5000
+  API_PORT: 3001
 
 tasks:
   default:
