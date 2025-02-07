@@ -1,0 +1,21 @@
+version: '3'
+
+vars:
+  API_PORT: 3001
+  FE_PORT: 3000
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
+
+  build:
+    desc: Builds the frontent image
+    cmds:
+      - docker build -t frontend:latest .
+
+  run:
+    desc: Runs the frontent container
+    cmds:
+      - docker run --rm --name frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" frontend
