@@ -12,7 +12,7 @@ import {
     getTransactionsByUser,
   } from '../services/api_client';
   
-  const BASE_URL = 'http://localhost:5000';
+  const BASE_URL = 'http://localhost:3001';
   
   global.fetch = jest.fn();
   
