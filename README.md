@@ -16,5 +16,3 @@ This basic application features a number of components which together make up th
 Both the `api` and `frontend` components also contain test suites that can be used to test them in isolation.
 
 Almost all code was produced using Copilot and should not be considered remotely production quality.
-
-//testing github remove after tested
