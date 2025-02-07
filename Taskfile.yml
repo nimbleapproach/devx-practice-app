@@ -6,6 +6,9 @@ includes:
   api:
     taskfile: ./api/Taskfile.yml
     dir: ./api
+  # frontend:
+  #   taskfile: ./frontend/Taskfile.yml
+  #   dir: ./frontend
 
 tasks:
   default:
