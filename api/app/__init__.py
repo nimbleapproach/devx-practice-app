@@ -11,7 +11,9 @@ def create_app():
     app = Flask(__name__)
     CORS(app)
     app.config.from_object(Config)
+    return app
 
+def init_app(app):
     db.init_app(app)
     jwt.init_app(app)
 

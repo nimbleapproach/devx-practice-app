@@ -40,7 +40,7 @@ nextjs-app
 1. **Clone the repository**:
    ```
    git clone <repository-url>
-   cd nextjs-app
+   cd frontend
    ```
 
 2. **Install dependencies**:

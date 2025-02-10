@@ -1,20 +1,7 @@
-import pytest
-from app import create_app, db
+from app import db
 from app.models import User, Transaction
 from flask_jwt_extended import create_access_token
 from werkzeug.security import generate_password_hash
-
-@pytest.fixture(scope="function")
-def client():
-  app = create_app()
-  app.config['TESTING'] = True
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-  with app.test_client() as client:
-    with app.app_context():
-      db.create_all()
-      yield client
-      db.session.close_all()
-      db.drop_all()
 
 def create_user(username, email, password):
   user = User(username=username, email=email, password=generate_password_hash(password))
