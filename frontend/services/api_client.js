@@ -1,4 +1,4 @@
-const BASE_URL = "http://api:3001"; // Adjust the base URL as needed
+const BASE_URL = "http://localhost:3001"; // Adjust the base URL as needed
 
 const getHeaders = (token) => ({
   "Content-Type": "application/json",
