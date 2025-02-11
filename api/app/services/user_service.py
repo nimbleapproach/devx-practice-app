@@ -1,6 +1,6 @@
 from werkzeug.security import generate_password_hash
 
-from app.models import User, db
+from app.models import Transaction, User, db
 
 def create_user(username, email, password):
     hashed_password = generate_password_hash(password)
@@ -28,6 +28,7 @@ def update_user(user_id, username=None, email=None, password=None):
     return user
 
 def delete_user(user_id):
+    Transaction.query.filter_by(user_id=user_id).delete()
     user = User.query.get(user_id)
     if user:
         db.session.delete(user)
