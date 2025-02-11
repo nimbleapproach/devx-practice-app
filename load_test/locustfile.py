@@ -12,7 +12,7 @@ class UserBehavior(TaskSet):
         self.get_user_id()
     
     def on_stop(self):
-        self.client.delete(f"/users/{self.user_id}", headers={"Authorization": f"Bearer {self.token}"})
+        self.client.delete(f"/users/{self.user_id}", name="/users/[user_id]", headers={"Authorization": f"Bearer {self.token}"})
 
     def sign_up(self):
         self.user_suffix = random.randint(1, 1000000)
@@ -23,11 +23,11 @@ class UserBehavior(TaskSet):
         self.token = response.json().get("access_token")
 
     def get_user_id(self):
-        self.user_id = self.client.get(f"/users/testuser_{self.user_suffix}", headers={"Authorization": f"Bearer {self.token}"}).json().get("id")
+        self.user_id = self.client.get(f"/users/testuser_{self.user_suffix}", name="/users/[username]", headers={"Authorization": f"Bearer {self.token}"}).json().get("id")
 
     @task
     def visit_dashboard(self):
-        self.client.get(f"/transactions/user/{self.user_id}", headers={"Authorization": f"Bearer {self.token}"})
+        self.client.get(f"/transactions/user/{self.user_id}", name="/transactions/user/[user_id]", headers={"Authorization": f"Bearer {self.token}"})
 
     @task
     def add_transaction(self):
@@ -35,6 +35,6 @@ class UserBehavior(TaskSet):
         self.client.post("/transactions", json={"amount": amount, "description": "Test transaction", "user_id": self.user_id}, headers={"Authorization": f"Bearer {self.token}"})
 
 class WebsiteUser(HttpUser):
-    host = "http://localhost:5000"
+    host = "http://localhost:3001"
     tasks = [UserBehavior]
     wait_time = between(1, 2)
