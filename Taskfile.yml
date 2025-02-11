@@ -47,9 +47,7 @@ tasks:
     cmds:
       - task: build-all
       - task: run-all
-      # ### TODO: pytest is dependent on, and corrupting db
-      # - docker exec devx-api pytest
+      - docker exec devx-api pytest
       - docker exec devx-frontend npm test
       - task: tests:run-e2e-tests
       - defer: {task: stop-all}
-
