@@ -4,9 +4,9 @@
   "description": "A Next.js application with user authentication and transaction management.",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${FE_PORT:-3000}",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p ${FE_PORT:-3000}",
     "test": "jest"
   },
   "keywords": [],

@@ -9,9 +9,9 @@ includes:
   frontend:
     taskfile: ./frontend/Taskfile.yml
     dir: ./frontend
-  tests:
-    taskfile: ./tests/Taskfile.yml
-    dir: ./tests
+  load_test:
+    taskfile: ./load_test/Taskfile.yml
+    dir: ./load_test
 
 tasks:
   default:
@@ -24,30 +24,4 @@ tasks:
     cmds:
       - task: api:build
       - task: frontend:build
-
-  run-all:
-    desc: Runs docker images for all components 
-    cmds:
-      - docker network create devx
-      - docker run -d --rm --name devx-db -p 5432:5432 --network devx -v './database:/docker-entrypoint-initdb.d/:ro' -e POSTGRES_PASSWORD="mysecretpassword" -e POSTGRES_USER=postgres -e POSTGRES_DB=app_database postgres
-      - docker run -d --rm --name devx-api -p "{{.API_PORT}}":"{{.API_PORT}}" --network devx -e API_DB_ENDPOINT=devx-db devx-api
-      - docker run -d --rm --name devx-frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" --network devx frontend
-
-  stop-all:
-    desc: Stops docker images for all components 
-    ignore_error: true
-    cmds:
-      - docker container stop devx-db
-      - docker container stop devx-api
-      - docker container stop devx-frontend
-      - docker network rm devx
-
-  test-all:
-    desc: Runs integration tests
-    cmds:
-      - task: build-all
-      - task: run-all
-      - docker exec devx-api pytest
-      - docker exec devx-frontend npm test
-      - task: tests:run-e2e-tests
-      - defer: {task: stop-all}
+      - task: load_test:build
