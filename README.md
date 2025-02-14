@@ -21,22 +21,34 @@ Almost all code was produced using Copilot and should not be considered remotely
 
 You may wish to install [task](https://taskfile.dev/installation/), to use the various Taskfiles.  
 
-Build the various container images, the simplest way is to use the included `Taskfile.yml`:
+To see what 'tasks' are available, simply run `task`:
 
-    task build-all
+    task: Available tasks for this project:
+    * build:                     Builds docker images for all components
+    * start:                     Starts all the components
+    * stop:                      Stops all the components
+    ...
 
-You can also build individual component images:
+To build all the container images, from the project root:
+
+    task build
+
+You can also build individual component images, from the project root:
 
     task api:build
 
 Use docker compose and the `docker-compose.yml` to start the components:
 
-    docker compose up -d
+    task start
 
 To stop:
 
-    docker compose down
+    task stop
 
-To run the load tests against the API component, first ensure the docker compose stack is up and running, then:
+To run all tests against various components:
+
+    task test-all
+
+To run the load tests against the API component, first ensure the stack is up and running, then:
 
     task load_test:run

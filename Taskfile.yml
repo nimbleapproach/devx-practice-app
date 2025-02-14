@@ -9,6 +9,9 @@ includes:
   frontend:
     taskfile: ./frontend/Taskfile.yml
     dir: ./frontend
+  tests:
+    taskfile: ./tests/Taskfile.yml
+    dir: ./tests
   load_test:
     taskfile: ./load_test/Taskfile.yml
     dir: ./load_test
@@ -19,9 +22,29 @@ tasks:
       - task -l
     silent: true
 
-  build-all:
+  build:
     desc: Builds docker images for all components 
     cmds:
       - task: api:build
       - task: frontend:build
       - task: load_test:build
+
+  start:
+    desc: Starts all the components
+    cmds:
+      - docker compose up -d
+
+  stop:
+    desc: Stops all the components
+    cmds:
+      - docker compose down 
+
+  test-all:
+    desc: Runs integration tests
+    cmds:
+      - task: build
+      - task: start
+      - defer: {task: stop}
+      - docker exec devx-api pytest
+      - docker exec devx-frontend npm test
+      - task: tests:run-e2e-tests
