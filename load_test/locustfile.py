@@ -1,6 +1,10 @@
 from locust import HttpUser, TaskSet, task, between
 import random
 
+import os
+
+API_URL = os.getenv("API_URL", "http://localhost:3001")
+
 class UserBehavior(TaskSet):
     token = None
     user_suffix = None
@@ -35,6 +39,6 @@ class UserBehavior(TaskSet):
         self.client.post("/transactions", json={"amount": amount, "description": "Test transaction", "user_id": self.user_id}, headers={"Authorization": f"Bearer {self.token}"})
 
 class WebsiteUser(HttpUser):
-    host = "http://localhost:3001"
+    host = API_URL
     tasks = [UserBehavior]
     wait_time = between(1, 2)

@@ -1,7 +1,6 @@
 version: '3'
 
 vars:
-  API_PORT: 3001
   FE_PORT: 3000
 
 tasks:
@@ -13,14 +12,14 @@ tasks:
   build:
     desc: Builds the frontent image
     cmds:
-      - docker build -t frontend:latest .
+      - docker build -t devx-frontend:latest .
 
   run:
     desc: Runs the frontent container
     cmds:
-      - docker run -d --rm --name frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" frontend
+      - docker run -d --rm --name devx-frontend -p "{{.FE_PORT}}":"{{.FE_PORT}}" devx-frontend
 
   stop:
     desc: Stops the frontend container
     cmds:
-      - docker stop frontend
+      - docker stop devx-frontend

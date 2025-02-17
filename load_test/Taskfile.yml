@@ -1,0 +1,22 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  API_URL: "http://api:3001"
+
+tasks:
+  default:
+    cmds:
+      - task -l
+    silent: true
+
+  build:
+    desc: Builds the dex-loadtest docker image and applies the latest tag
+    cmds:
+      - docker build -t devx-loadtest:latest .
+
+  run:
+    desc: Runs the devx-loadtest container and the load test
+    cmds:
+      - docker run --rm --name devx-loadtest -e API_URL="{{.API_URL}}" --network devx-practice-app_default devx-loadtest # Assumes default docker-compose network name

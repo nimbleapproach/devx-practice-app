@@ -14,7 +14,7 @@ tasks:
   run:
     desc: Runs the devx-playwright container
     cmds:
-      - docker run --rm --net=host --name devx-playright devx-playwright playwright test
+      - docker run --rm --net=host --name devx-playwright devx-playwright playwright test
 
   run-e2e-tests:
     desc: Runs e2e tests in dedicated container
