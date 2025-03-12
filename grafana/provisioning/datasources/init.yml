@@ -1,0 +1,23 @@
+apiVersion: 1
+
+# https://grafana.com/docs/grafana/latest/administration/provisioning/#:~:text=grafana.provision%20module-,Data%20sources,add%20or%20update%20during%20startup.
+
+# List of data sources to delete from the database.
+# deleteDatasources:
+#   - name: prometheus
+#     orgId: 1
+
+# Mark provisioned data sources for deletion if they are no longer in a provisioning file.
+# It takes no effect if data sources are already listed in the deleteDatasources section.
+prune: true
+
+datasources:
+  - name: prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    uid: devx-prometheus
+    url: http://prometheus:9090
+    isDefault: true
+    version: 1
+    editable: false
