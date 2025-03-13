@@ -38,10 +38,25 @@ services:
     - ./grafana/provisioning:/etc/grafana/provisioning
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
+    container_name: devx-prometheus
     ports:
       - 9090:9090
     command:
-      - --config.file=/etc/prometheus/prometheus.yml
+      - --config.file=/etc/prometheus.yml
     volumes:
-      - './prometheus.yml:/etc/prometheus/prometheus.yml:ro'
+      - './prometheus.yml:/etc/prometheus.yml:ro'
+  loki:
+    image: grafana/loki:latest
+    container_name: devx-loki
+    ports:
+      - "3100:3100"
+  promtail:
+    image: grafana/promtail:latest
+    container_name: devx-promtail
+    volumes:
+      - './promtail-config.yml:/etc/promtail/promtail-config.yml:ro'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    command:
+      - --config.file=/etc/promtail/promtail-config.yml
+    # labels:
+    #   logging: promtail
