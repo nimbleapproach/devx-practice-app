@@ -2,25 +2,34 @@ from flask import Blueprint, request, jsonify
 from app.services.user_service import create_user, get_user, update_user, delete_user, get_user_by_username
 from app.services.auth_service import authenticate
 from flask_jwt_extended import jwt_required, get_jwt_identity
+import structlog
 
 user_routes = Blueprint('user_routes', __name__)
+base_logger = structlog.get_logger()
 
 @user_routes.route('/login', methods=['POST'])
 def login():
+    log = base_logger.bind(endpoint=login.__name__)
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
+    log.info('Attempting to log in', username=username)
     
     jwt = authenticate(username, password)
     if not jwt:
+        log.error('Bad username or password', username=username)
         return jsonify({"msg": "Bad username or password"}), 401
 
+    log.info('User logged in', username=username)
     return jsonify(access_token=jwt), 200
 
 @user_routes.route('/users', methods=['POST'])
 def add_user():
     data = request.get_json()
+    log = base_logger.bind(endpoint=add_user.__name__)
+    log.info('Creating user', username=data.get('username'))
     user = create_user(**data)
+    log.info('User created', username=data.get('username'), user_id=user.id)
     return jsonify(user.as_dict()), 201
 
 @user_routes.route('/users/<int:user_id>', methods=['GET'])
@@ -48,24 +57,34 @@ def get_single_user_by_username(username):
 @user_routes.route('/users/<int:user_id>', methods=['PUT'])
 @jwt_required()
 def update_single_user(user_id):
+    log = base_logger.bind(endpoint=update_single_user.__name__)
     data = request.get_json()
     current_user = get_jwt_identity()
     user = get_user(user_id)
     if user.username != current_user:
+        log.error('Unauthorized', user_id=user_id)
         return jsonify({'message': 'Unauthorized'}), 401
+    log.info('Updating user', user_id=user_id)
     user = update_user(user_id, **data)
     if user:
+        log.info('User updated', user_id=user_id)
         return jsonify(user.as_dict()), 200
+    log.error('User not found', user_id=user_id)
     return jsonify({'message': 'User not found'}), 404
 
 @user_routes.route('/users/<int:user_id>', methods=['DELETE'])
 @jwt_required()
 def delete_single_user(user_id):
+    log = base_logger.bind(endpoint=delete_single_user.__name__)
     current_user = get_jwt_identity()
     user = get_user(user_id)
     if user.username != current_user:
+        log.error('Unauthorized', user_id=user_id)
         return jsonify({'message': 'Unauthorized'}), 401
+    log.info('Deleting user', user_id=user_id)
     success = delete_user(user_id)
     if success:
+        log.info('User deleted', user_id=user_id)
         return jsonify({'message': 'User deleted'}), 204
+    log.error('User not found', user_id=user_id)
     return jsonify({'message': 'User not found'}), 404

@@ -3,20 +3,27 @@ from app.models import Transaction
 from app import db
 from app.services.user_service import get_user
 from flask_jwt_extended import jwt_required, get_jwt_identity
+import structlog
 
 transaction_bp = Blueprint('transaction', __name__)
+base_logger = structlog.get_logger()
 
 @transaction_bp.route('/transactions', methods=['POST'])
 @jwt_required()
 def create_transaction():
+    log = base_logger.bind(endpoint=create_transaction.__name__)
     data = request.get_json()
     current_user = get_jwt_identity()
     transaction_user = get_user(data['user_id'])
+    user_id = data.get('user_id')
     if transaction_user.username != current_user:
+        log.error('Unauthorized', user_id=user_id)
         return jsonify({'message': 'Unauthorized'}), 401
+    log.info('Creating transaction', user_id=user_id)
     new_transaction = Transaction(**data)
     db.session.add(new_transaction)
     db.session.commit()
+    log.info('Transaction created', user_id=user_id, transaction_id=new_transaction.id)
     return jsonify(new_transaction.as_dict()), 201
 
 @transaction_bp.route('/transactions/<int:transaction_id>', methods=['GET'])
