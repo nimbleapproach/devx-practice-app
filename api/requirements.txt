@@ -8,3 +8,4 @@ pytest
 pytest-flask
 flask-cors
 prometheus-flask-exporter
+structlog

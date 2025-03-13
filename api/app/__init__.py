@@ -3,9 +3,19 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from app.config import Config
+import structlog
 
 jwt = JWTManager()
 db = SQLAlchemy()
+
+
+structlog.configure(
+    processors=[
+        structlog.processors.add_log_level,
+        structlog.processors.TimeStamper(fmt="iso", key="ts"),
+        structlog.processors.JSONRenderer(),
+    ],
+)
 
 def create_app():
     app = Flask(__name__)
