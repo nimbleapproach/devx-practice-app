@@ -24,3 +24,14 @@ scrape_configs:
       target_label: 'logstream'
     - source_labels: ['__meta_docker_container_label_logging_jobname']
       target_label: 'job'
+  pipeline_stages:
+    - json:
+        expressions:
+          event: event
+          username: username
+          level: level
+          ts: ts
+    - labels:
+        event: event
+        username: username
+        level: level
