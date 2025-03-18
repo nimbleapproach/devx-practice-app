@@ -15,7 +15,7 @@
         }
       ]
     },
-    "description": "Starting Point - Example modified",
+    "description": "Starting Point / Example",
     "editable": true,
     "fiscalYearStartMonth": 0,
     "graphTooltip": 0,
@@ -795,7 +795,7 @@
       "refresh_intervals": []
     },
     "timezone": "",
-    "title": "Prometheus Flask Exporter 1",
+    "title": "Prometheus Flask Exporter Example",
     "uid": "deftjxewk79j4a",
     "version": 1,
     "weekStart": ""
