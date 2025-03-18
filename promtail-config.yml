@@ -30,8 +30,11 @@ scrape_configs:
           event: event
           username: username
           level: level
+          endpoint: endpoint
           ts: ts
     - labels:
         event: event
         username: username
         level: level
+        endpoint: endpoint
+        ts: ts
